@@ -1,0 +1,13 @@
+SECURITY SCAN REPORT
+=====================
+
+Target       : www.google.com
+Scan Time    : 2025-12-14 12:51:00.185739
+Risk Level   : Low
+
+Open Ports:
+- 80/tcp  open  http
+- 443/tcp open  https
+
+Recommendation:
+System appears safe.

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Network Risk Scanner</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h2 {
+            color: #2c5364;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            background: #2c5364;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #203a43;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="card">
+    <h2>Network Risk Scanner</h2>
+
+    <form action="/scan" method="post">
+        <input type="text" name="target" placeholder="Enter IP or Domain" required>
+        <br>
+        <button type="submit">Start Scan</button>
+    </form>
+</div>
+
+</body>
+</html>

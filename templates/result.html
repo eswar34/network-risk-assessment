@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Result</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: Arial, Helvetica, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            width: 400px;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+        }
+
+        h2 {
+            color: #2c5364;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .medium {
+            color: orange;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2c5364;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="card">
+    <h2>Scan Result</h2>
+
+    <p><b>Target:</b> {{ target }}</p>
+
+    {% if risk == "Low" %}
+        <p class="low">Risk Level: LOW</p>
+    {% elif risk == "Medium" %}
+        <p class="medium">Risk Level: MEDIUM</p>
+    {% else %}
+        <p class="high">Risk Level: HIGH</p>
+    {% endif %}
+    <h4>Open Ports:</h4>
+
+    {% if ports %}
+    <ul>
+        {% for port in ports %}
+            <li>{{ port }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No open ports detected</p>
+    {% endif %}
+    <p><b>Report Generated:</b> {{ report }}</p>
+    <p>(Saved in project folder)</p>
+
+
+
+    <br><br>
+    <a href="/">Scan Another</a>
+</div>
+
+</body>
+</html>
