@@ -133,7 +133,7 @@ Secure and ethical testing practices
 👨‍🎓 Author
 Eswar Kumar
 Cybersecurity & SOC Analyst Aspirant
-GitHub: https://github.com/YOUR_USERNAME
+GitHub: https://github.com/eswar34
 
 📜 Disclaimer
 This project is for educational and ethical learning purposes only.
