@@ -1,68 +1,310 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Network Risk Scanner</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔒 Advanced Network Risk Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            font-family: Arial, Helvetica, sans-serif;
-            height: 100vh;
-            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .scanner-container {
+            min-height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .card {
-            background: white;
-            width: 400px;
-            padding: 30px;
+        .scanner-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 500px;
+            width: 100%;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scanner-icon {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .scanner-title {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .scanner-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-floating {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
             border-radius: 12px;
-            text-align: center;
-            box-shadow: 0px 10px 30px rgba(0,0,0,0.4);
+            border: 2px solid #e1e5e9;
+            padding: 12px 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
 
-        h2 {
-            color: #2c5364;
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
         }
 
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
-
-        button {
-            background: #2c5364;
-            color: white;
-            padding: 10px 25px;
+        .scan-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
+            border-radius: 12px;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            width: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        button:hover {
-            background: #203a43;
+        .scan-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .scan-btn:active {
+            transform: translateY(0);
+        }
+
+        .scan-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .scan-btn:hover::before {
+            left: 100%;
+        }
+
+        .features {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .feature-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .feature-item i {
+            color: #667eea;
+            margin-right: 5px;
+        }
+
+        .dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        }
+
+        .dark-mode .scanner-card {
+            background: rgba(22, 33, 62, 0.95) !important;
+            border: 1px solid rgba(102, 126, 234, 0.3) !important;
+        }
+
+        .dark-mode .scanner-title,
+        .dark-mode .scanner-subtitle {
+            color: #ffffff !important;
+        }
+
+        .dark-mode .form-control {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: rgba(102, 126, 234, 0.5) !important;
+            color: white !important;
+        }
+
+        .dark-mode .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
+        }
+
+        .dark-mode .form-floating label {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .dark-mode .feature-item {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .theme-toggle i {
+            color: white;
+            font-size: 1.2rem;
         }
     </style>
-
 </head>
 <body>
 
-<div class="card">
-    <h2>Network Risk Scanner</h2>
+<button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+</button>
 
-    <form action="/scan" method="post">
-        <input type="text" name="target" placeholder="Enter IP or Domain" required>
-        <br>
-        <button type="submit">Start Scan</button>
-    </form>
+<div class="scanner-container">
+    <div class="scanner-card">
+        <div class="text-center">
+            <i class="fas fa-shield-alt scanner-icon"></i>
+            <h1 class="scanner-title">Advanced Network Risk Scanner</h1>
+            <p class="scanner-subtitle">Comprehensive security analysis for your network infrastructure</p>
+        </div>
+
+        <form action="/loading" method="post" id="scanForm">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="targetInput" name="target"
+                       placeholder="Enter IP address or domain name" required>
+                <label for="targetInput">
+                    <i class="fas fa-search me-2"></i>Target (IP/Domain)
+                </label>
+            </div>
+
+            <button type="submit" class="scan-btn" id="scanBtn">
+                <i class="fas fa-play me-2"></i>Start Security Scan
+            </button>
+        </form>
+
+        <div class="features">
+            <div class="feature-item">
+                <i class="fas fa-network-wired"></i> Port Scanning
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i> Risk Assessment
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-file-alt"></i> Security Reports
+            </div>
+        </div>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Add loading animation to form submission
+    document.getElementById('scanForm').addEventListener('submit', function(e) {
+        const btn = document.getElementById('scanBtn');
+        const originalText = btn.innerHTML;
+
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Scanning...';
+        btn.disabled = true;
+
+        // Re-enable after 2 seconds (in case of quick response)
+        setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }, 2000);
+    });
+
+    // Add input validation
+    document.getElementById('targetInput').addEventListener('input', function(e) {
+        const value = e.target.value;
+        const isValid = value.length > 0 && (isValidIP(value) || isValidDomain(value));
+
+        e.target.classList.toggle('is-valid', isValid);
+        e.target.classList.toggle('is-invalid', value.length > 0 && !isValid);
+    });
+
+    function isValidIP(ip) {
+        const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        return ipRegex.test(ip);
+    }
+
+    function isValidDomain(domain) {
+        const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)*$/;
+        return domainRegex.test(domain) && domain.length <= 253;
+    }
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        themeIcon.className = 'fas fa-sun';
+    }
+
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+
+        if (body.classList.contains('dark-mode')) {
+            themeIcon.className = 'fas fa-sun';
+            localStorage.setItem('theme', 'dark');
+        } else {
+            themeIcon.className = 'fas fa-moon';
+            localStorage.setItem('theme', 'light');
+        }
+    });
+</script>
 
 </body>
 </html>

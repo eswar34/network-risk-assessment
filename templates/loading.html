@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔄 Scanning in Progress...</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-container {
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        .loading-icon {
+            font-size: 5rem;
+            margin-bottom: 30px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .loading-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .loading-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            animation: progress 3s ease-in-out infinite;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        .scanning-steps {
+            text-align: left;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step.completed {
+            background: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .step.pending {
+            opacity: 0.6;
+        }
+
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+
+        .step.completed .step-icon {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .step.pending .step-icon {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .step-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .security-tips {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tips-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .tip-icon {
+            color: #FFD700;
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+
+        .tip-text {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .loading-container {
+                padding: 20px;
+            }
+
+            .loading-title {
+                font-size: 2rem;
+            }
+
+            .scanning-steps,
+            .security-tips {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loading-container">
+    <div class="loading-icon">
+        <i class="fas fa-cog fa-spin"></i>
+    </div>
+
+    <h1 class="loading-title">Scanning in Progress</h1>
+
+    <p class="loading-text">Performing comprehensive security analysis on your target...</p>
+
+    <div class="progress-container">
+        <div class="progress">
+            <div class="progress-bar" role="progressbar"></div>
+        </div>
+    </div>
+
+    <div class="scanning-steps">
+        <div class="step completed" id="step1">
+            <div class="step-icon"><i class="fas fa-check"></i></div>
+            <div class="step-text">Initializing scan parameters</div>
+        </div>
+
+        <div class="step completed" id="step2">
+            <div class="step-icon"><i class="fas fa-check"></i></div>
+            <div class="step-text">Connecting to target system</div>
+        </div>
+
+        <div class="step pending" id="step3">
+            <div class="step-icon"><i class="fas fa-network-wired"></i></div>
+            <div class="step-text">Scanning network ports</div>
+        </div>
+
+        <div class="step pending" id="step4">
+            <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="step-text">Analyzing security vulnerabilities</div>
+        </div>
+
+        <div class="step pending" id="step5">
+            <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+            <div class="step-text">Generating security report</div>
+        </div>
+    </div>
+
+    <div class="security-tips">
+        <h3 class="tips-title">
+            <i class="fas fa-lightbulb me-2"></i>Security Tips
+        </h3>
+
+        <div class="tip-item">
+            <i class="fas fa-shield-alt tip-icon"></i>
+            <div class="tip-text">Regular security scans help identify vulnerabilities before they can be exploited.</div>
+        </div>
+
+        <div class="tip-item">
+            <i class="fas fa-lock tip-icon"></i>
+            <div class="tip-text">Keep your systems updated with the latest security patches.</div>
+        </div>
+
+        <div class="tip-item">
+            <i class="fas fa-user-secret tip-icon"></i>
+            <div class="tip-text">Use strong, unique passwords and enable two-factor authentication.</div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden form to submit scan request -->
+<form id="scanForm" action="/scan" method="post" style="display: none;">
+    <input type="hidden" name="target" value="{{ target }}">
+</form>
+
+<script>
+    // Animate scanning steps
+    const steps = document.querySelectorAll('.step');
+    let currentStep = 2; // Start with first 2 completed
+
+    function completeStep(stepIndex) {
+        if (stepIndex < steps.length) {
+            steps[stepIndex].classList.remove('pending');
+            steps[stepIndex].classList.add('completed');
+            steps[stepIndex].querySelector('.step-icon').innerHTML = '<i class="fas fa-check"></i>';
+        }
+    }
+
+    // Simulate scanning progress and auto-submit
+    setTimeout(() => completeStep(2), 1000);
+    setTimeout(() => completeStep(3), 2500);
+    setTimeout(() => completeStep(4), 4000);
+    setTimeout(() => {
+        completeStep(5);
+        document.querySelector('.loading-text').textContent = 'Scan completed! Generating results...';
+        document.querySelector('.loading-icon i').className = 'fas fa-check-circle';
+        document.querySelector('.loading-icon').style.animation = 'none';
+
+        // Submit the form to get results
+        setTimeout(() => {
+            document.getElementById('scanForm').submit();
+        }, 1000);
+    }, 5000);
+</script>
+
+</body>
+</html>
